@@ -21,6 +21,14 @@ const User = sequelize.define('User', {
   name: {
     type: DataTypes.STRING,
     allowNull: true,
+  },
+  username: {
+    type: DataTypes.STRING,
+    allowNull: true,
+    unique: true,
+    validate: {
+      len: [3, 30] // username must be between 3 and 30 characters
+    }
   }
 }, {});
 

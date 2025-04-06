@@ -3,11 +3,13 @@ const FuelLog = require('../models/FuelLog');
 
 exports.createFuelLog = async (req, res) => {
   try {
+    console.log('Received request to create fuel log:', req.body);
     const { gallonsFilled, kilometersDriven, cost, VehicleId } = req.body;
     const fuelLog = await FuelLog.create({ gallonsFilled, kilometersDriven, cost, VehicleId });
     res.status(201).json(fuelLog);
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    res.status(500).json({ error: error.parent.detail });
+    console.log('Error creating fuel log:', error.parent.detail);
   }
 };
 
